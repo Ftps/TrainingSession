@@ -10,9 +10,17 @@ map_chart = { '#': -1, '~': 800, '*': 200, '+': 150, 'X': 120, '_': 100, 'H': 70
 def cost(cell):
     return map[cell[0]][cell[1]]
 
+'''
+Sigmoid based distance function so that points really close to a headquarter
+don't have too much of a lower cost
+'''
 def distance(hq, i, j, size):
     return 1/(1 + exp(2.5*((abs(hq[0]-j) + abs(hq[1]-i)) - size)/size))
 
+'''
+Density function that takes into account the position of the headquarters,
+the size of the map and the type of terrain around the point
+'''
 def density_map(map, head, N, M):
     map_den = zeros((M, N))
     size = 0.5*(N+M)/len(head)
